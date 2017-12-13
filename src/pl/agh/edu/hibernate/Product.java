@@ -15,9 +15,9 @@ public class Product {
     private String productName;
     private int unitsOnStock;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "supplier_FK")
-    private Supplier supplier;
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "supplier_FK")
+//    private Supplier supplier;
 
     public Product() { }
 
@@ -42,11 +42,11 @@ public class Product {
         this.unitsOnStock = unitsOnStock;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
+//    public Supplier getSupplier() {
+//        return supplier;
+//    }
+//
+//    public void setSupplier(Supplier supplier) {
+//        this.supplier = supplier;
+//    }
 }

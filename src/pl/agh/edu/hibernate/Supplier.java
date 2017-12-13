@@ -2,6 +2,7 @@ package pl.agh.edu.hibernate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -16,8 +17,8 @@ public class Supplier {
     private String street;
     private String city;
 
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST)
-    private Set<Product> products;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Product> products = new HashSet<>();
 
     public Supplier() {
     }

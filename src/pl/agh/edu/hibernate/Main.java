@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -17,15 +19,14 @@ public class Main {
 
 
         Transaction tx = session.beginTransaction();
-//        Product product = new Product("auto-created product", 99);
         Supplier supplier = new Supplier("test company", "test street", "Krakow");
 
+        supplier.addProduct(new Product("test prod 1", 1));
+        supplier.addProduct(new Product("test prod 2", 2));
+        supplier.addProduct(new Product("test prod 3", 3));
+        supplier.addProduct(new Product("test prod 4", 4));
 
-        Product product = session.load(Product.class, 1);
-
-        product.setSupplier(supplier);
         session.save(supplier);
-        session.save(product);
         tx.commit();
         session.close();
     }
