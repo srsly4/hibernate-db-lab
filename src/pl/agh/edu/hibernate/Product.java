@@ -15,9 +15,13 @@ public class Product {
     private String productName;
     private int unitsOnStock;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_FK")
     private Supplier supplier;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_FK")
+    private Category category;
 
     public Product() { }
 
@@ -26,10 +30,17 @@ public class Product {
         this.unitsOnStock = unitsOnStock;
     }
 
-    public Product(String productName, int unitsOnStock, Supplier supplier) {
+    public Product(String productName, int unitsOnStock, Category category) {
+        this.productName = productName;
+        this.unitsOnStock = unitsOnStock;
+        this.category = category;
+    }
+
+    public Product(String productName, int unitsOnStock, Supplier supplier, Category category) {
         this.productName = productName;
         this.unitsOnStock = unitsOnStock;
         this.supplier = supplier;
+        this.category = category;
     }
 
     public String getProductName() {
@@ -54,5 +65,17 @@ public class Product {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public int getDbId() {
+        return dbId;
     }
 }

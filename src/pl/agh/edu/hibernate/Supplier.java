@@ -31,6 +31,7 @@ public class Supplier {
 
     public void addProduct(Product product) {
         this.products.add(product);
+        product.setSupplier(this);
     }
 
     public int getDbId() {
