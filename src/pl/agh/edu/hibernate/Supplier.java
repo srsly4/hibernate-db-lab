@@ -18,6 +18,7 @@ public class Supplier {
     private String city;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supplier_FK")
     private Set<Product> products = new HashSet<>();
 
     public Supplier() {
