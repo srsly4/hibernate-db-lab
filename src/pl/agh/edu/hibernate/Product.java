@@ -15,15 +15,21 @@ public class Product {
     private String productName;
     private int unitsOnStock;
 
-//    @ManyToOne(cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "supplier_FK")
-//    private Supplier supplier;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supplier_FK")
+    private Supplier supplier;
 
     public Product() { }
 
     public Product(String productName, int unitsOnStock) {
         this.productName = productName;
         this.unitsOnStock = unitsOnStock;
+    }
+
+    public Product(String productName, int unitsOnStock, Supplier supplier) {
+        this.productName = productName;
+        this.unitsOnStock = unitsOnStock;
+        this.supplier = supplier;
     }
 
     public String getProductName() {
@@ -42,11 +48,11 @@ public class Product {
         this.unitsOnStock = unitsOnStock;
     }
 
-//    public Supplier getSupplier() {
-//        return supplier;
-//    }
-//
-//    public void setSupplier(Supplier supplier) {
-//        this.supplier = supplier;
-//    }
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
 }
