@@ -15,15 +15,16 @@ public class Main {
         sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
 
-        String name;
-        int units = 0;
-
-        Scanner s = new Scanner(System.in);
-        name = s.next();
-        units = s.nextInt();
 
         Transaction tx = session.beginTransaction();
-        Product product = new Product(name, units);
+//        Product product = new Product("auto-created product", 99);
+        Supplier supplier = new Supplier("test company", "test street", "Krakow");
+
+
+        Product product = session.load(Product.class, 1);
+
+        product.setSupplier(supplier);
+        session.save(supplier);
         session.save(product);
         tx.commit();
         session.close();

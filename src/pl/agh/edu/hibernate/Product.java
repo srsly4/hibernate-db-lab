@@ -2,10 +2,7 @@ package pl.agh.edu.hibernate;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -17,6 +14,10 @@ public class Product {
     private int dbId;
     private String productName;
     private int unitsOnStock;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "supplier_FK")
+    private Supplier supplier;
 
     public Product() { }
 
@@ -39,5 +40,13 @@ public class Product {
 
     public void setUnitsOnStock(int unitsOnStock) {
         this.unitsOnStock = unitsOnStock;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }

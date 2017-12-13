@@ -1,43 +1,66 @@
 package pl.agh.edu.hibernate;
 
-
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 
 @Entity
-public class Product {
+public class Supplier {
     @Id
     @GeneratedValue(
             strategy = GenerationType.AUTO
     )
     private int dbId;
-    private String productName;
-    private int unitsOnStock;
+    private String companyName;
+    private String street;
+    private String city;
 
-    public Product() { }
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.PERSIST)
+    private Set<Product> products;
 
-    public Product(String productName, int unitsOnStock) {
-        this.productName = productName;
-        this.unitsOnStock = unitsOnStock;
+    public Supplier() {
     }
 
-    public String getProductName() {
-        return productName;
+    public Supplier(String companyName, String street, String city) {
+        this.companyName = companyName;
+        this.street = street;
+        this.city = city;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void addProduct(Product product) {
+        this.products.add(product);
     }
 
-    public int getUnitsOnStock() {
-        return unitsOnStock;
+    public int getDbId() {
+        return dbId;
     }
 
-    public void setUnitsOnStock(int unitsOnStock) {
-        this.unitsOnStock = unitsOnStock;
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 }
