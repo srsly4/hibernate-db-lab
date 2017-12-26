@@ -13,5 +13,6 @@
         <mapping class="pl.agh.edu.hibernate.Product" />
         <mapping class="pl.agh.edu.hibernate.Supplier" />
         <mapping class="pl.agh.edu.hibernate.Category" />
+        <mapping class="pl.agh.edu.hibernate.SalesTransaction" />
     </session-factory>
 </hibernate-configuration>

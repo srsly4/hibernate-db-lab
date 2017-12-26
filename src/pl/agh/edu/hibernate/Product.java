@@ -3,6 +3,8 @@ package pl.agh.edu.hibernate;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,6 +25,13 @@ public class Product {
     @JoinColumn(name = "category_FK")
     private Category category;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="product_transaction",
+            joinColumns=@JoinColumn(name="productId"),
+            inverseJoinColumns=@JoinColumn(name="salesTransactionId")
+    )
+    private List<SalesTransaction> salesTransactions = new ArrayList<>();
+
     public Product() { }
 
     public Product(String productName, int unitsOnStock) {
@@ -41,6 +50,10 @@ public class Product {
         this.unitsOnStock = unitsOnStock;
         this.supplier = supplier;
         this.category = category;
+    }
+
+    public void addTransaction(SalesTransaction salesTransaction) {
+        this.salesTransactions.add(salesTransaction);
     }
 
     public String getProductName() {
@@ -77,5 +90,9 @@ public class Product {
 
     public int getDbId() {
         return dbId;
+    }
+
+    public List<SalesTransaction> getSalesTransactions() {
+        return salesTransactions;
     }
 }
