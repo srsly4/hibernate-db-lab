@@ -1,24 +1,22 @@
 package pl.agh.edu.hibernate;
 
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static SessionFactory sessionFactory = null;
-
     public static void main(String[] args) {
-        sessionFactory = getSessionFactory();
-        Session session = sessionFactory.openSession();
+        EntityManagerFactory emf = Persistence.
+                createEntityManagerFactory("myDatabaseConfig");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
 
-
-        Transaction tx = session.beginTransaction();
         Supplier supplier = new Supplier("test company 1", "test street", "Krakow");
         Supplier supplier2 = new Supplier("test company 2", "test street", "Krakow");
 
@@ -31,29 +29,20 @@ public class Main {
         Product product = new Product("test prod 5", 5, cat);
         supplier2.addProduct(product);
 
-        session.save(supplier);
-        session.save(supplier2);
+        em.persist(supplier);
+        em.persist(supplier2);
 
         System.out.println("Produkty od " + supplier.getCompanyName());
         for (Product p : supplier.getProducts()) {
             System.out.println(p.getProductName());
         }
 
-        product = session.load(Product.class, product.getDbId());
+        product = em.find(Product.class, product.getDbId());
         System.out.println("Dostawca dla produktu " + product.getProductName());
         System.out.println(product.getSupplier().getCompanyName());
 
         tx.commit();
-        session.close();
-    }
-
-    private static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(Product.class);
-            sessionFactory = configuration.configure().buildSessionFactory();
-        }
-        return sessionFactory;
+        em.close();
     }
 
 }
