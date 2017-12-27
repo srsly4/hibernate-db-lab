@@ -72,7 +72,7 @@ public class Product {
         this.unitsOnStock = unitsOnStock;
     }
 
-    public Supplier getSupplier() {
+    public Company getSupplier() {
         return supplier;
     }
 

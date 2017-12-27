@@ -15,25 +15,11 @@ public class Main {
 
 
         Transaction tx = session.beginTransaction();
-        Supplier supplier = new Supplier("test company 1",
-                "Lea",  "Krakow", "00-999");
-        session.save(supplier);
-
-        Category cat = new Category("test category");
-
-
-        Product testProduct = new Product("test prod cascade source", 5, cat);
-        testProduct.setSupplier(supplier);
-
-        testProduct.addTransaction(new SalesTransaction(1234, 1));
-        testProduct.addTransaction(new SalesTransaction(1235, 2));
-        session.save(testProduct); // saves product and transactions
-
-
-        SalesTransaction testTransaction = new SalesTransaction(2345, 5);
-        testTransaction.addProduct(new Product("test prod cascade 1", 3, supplier, cat));
-        testTransaction.addProduct(new Product("test prod cascade 2", 2, supplier, cat));
-        session.save(testTransaction); // saves transaction and products
+        Company company = new Supplier("Test supplier", "Lea", "Krakow", "00-999",
+            "123456789012345");
+        Company company2 = new Customer("Test customer", "Lea", "Krakow", "00-999", 20);
+        session.save(company);
+        session.save(company2);
 
         tx.commit();
         session.close();

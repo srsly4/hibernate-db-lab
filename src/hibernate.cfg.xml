@@ -11,7 +11,9 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
         <mapping class="pl.agh.edu.hibernate.Product" />
+        <mapping class="pl.agh.edu.hibernate.Company" />
         <mapping class="pl.agh.edu.hibernate.Supplier" />
+        <mapping class="pl.agh.edu.hibernate.Customer" />
         <mapping class="pl.agh.edu.hibernate.Category" />
         <mapping class="pl.agh.edu.hibernate.SalesTransaction" />
     </session-factory>
