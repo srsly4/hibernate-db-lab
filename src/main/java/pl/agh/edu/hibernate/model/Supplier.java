@@ -1,4 +1,4 @@
-package pl.agh.edu.hibernate;
+package pl.agh.edu.hibernate.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package pl.agh.edu.hibernate;
+package pl.agh.edu.hibernate.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @SecondaryTable(name="COMPANY_ADDRESS")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Company {
     @Id
     @GeneratedValue(
