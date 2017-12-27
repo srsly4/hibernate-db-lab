@@ -37,6 +37,12 @@ public class Main {
         post("/categories/add", new AddCategoryHandler(session, cfg));
         get("/products", new ProductList(session, cfg));
         get("/products/add", new AddProductForm(session, cfg));
+        get("/suppliers", new SupplierList(session, cfg));
+        get("/suppliers/add", new AddSupplierForm(session, cfg));
+        post("/suppliers/add", new AddSupplierHandler(session, cfg));
+        get("/customers", new CustomerList(session, cfg));
+        get("/customers/add", new AddCustomerForm(session, cfg));
+        post("/customers/add", new AddCustomerHandler(session, cfg));
 
         exception(Exception.class, (exception, request, response) -> {
             exception.printStackTrace();
