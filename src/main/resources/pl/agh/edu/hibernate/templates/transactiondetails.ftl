@@ -5,7 +5,7 @@
         <form method="POST">
             <label>Transaction number:
                 <input name="transaction_number" id="transaction_number"
-                       type="number" value="${transaction.getTransactionNumber()}" />
+                       type="number" value="${transaction.getTransactionNumber()?c}" />
             </label>
             <label>Quantity:
                 <input name="quantity" id="quantity"

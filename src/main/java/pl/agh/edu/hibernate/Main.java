@@ -31,7 +31,7 @@ public class Main {
 
         staticFiles.location("/public");
 
-        get("/", (req, res) -> "Hello world!");
+        get("/", new TransactionList(session, cfg));
         get("/categories", new CategoryList(session, cfg));
         get("/categories/add", new AddCategoryForm(session, cfg));
         post("/categories/add", new AddCategoryHandler(session, cfg));

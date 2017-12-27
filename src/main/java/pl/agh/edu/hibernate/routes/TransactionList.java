@@ -23,7 +23,12 @@ public class TransactionList extends DefaultRoute {
     public Object handle(Request request, Response response) throws Exception {
         Map<String, Object> params = new HashMap<>();
         params.put("transactions",
-                session.createQuery("select p from SalesTransaction p", SalesTransaction.class).list());
+                session.createQuery("select p from SalesTransaction p " +
+                        "where p.isDraft = false order by p.timestamp desc", SalesTransaction.class).list());
+
+        params.put("drafts",
+                session.createQuery("select p from SalesTransaction p " +
+                        "where p.isDraft = true order by p.timestamp desc", SalesTransaction.class).list());
 
         return templateEngine.render(new ModelAndView(params, "transactions.ftl"));
     }
