@@ -20,4 +20,16 @@ public class Category {
     public Category(String name) {
         this.name = name;
     }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -1,14 +1,13 @@
 package pl.agh.edu.hibernate;
 
 
+import freemarker.template.TemplateExceptionHandler;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import pl.agh.edu.hibernate.model.Company;
-import pl.agh.edu.hibernate.model.Customer;
-import pl.agh.edu.hibernate.model.Product;
-import pl.agh.edu.hibernate.model.Supplier;
+import pl.agh.edu.hibernate.routes.*;
+
+import java.util.Locale;
 
 import static spark.Spark.*;
 
@@ -16,11 +15,32 @@ public class Main {
     private static SessionFactory sessionFactory = null;
 
     public static void main(String[] args) {
+
+        freemarker.template.Configuration cfg = new freemarker.template.Configuration();
+
+        // Where do we load the templates from:
+        cfg.setClassForTemplateLoading(Main.class, "templates");
+
+        // Some other recommended settings:
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setLocale(Locale.getDefault());
+        cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+
         sessionFactory = getSessionFactory();
         Session session = sessionFactory.openSession();
 
+        staticFiles.location("/public");
+
         get("/", (req, res) -> "Hello world!");
-        session.close();
+        get("/categories", new CategoryList(session, cfg));
+        get("/categories/add", new AddCategoryForm(session, cfg));
+        post("/categories/add", new AddCategoryHandler(session, cfg));
+        get("/products", new ProductList(session, cfg));
+        get("/products/add", new AddProductForm(session, cfg));
+
+        exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+        });
     }
 
     private static SessionFactory getSessionFactory() {
