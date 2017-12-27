@@ -44,6 +44,11 @@ public class Main {
         get("/customers", new CustomerList(session, cfg));
         get("/customers/add", new AddCustomerForm(session, cfg));
         post("/customers/add", new AddCustomerHandler(session, cfg));
+        get("/transactions", new TransactionList(session, cfg));
+        get("/transactions/create", new CreateTransactionHandler(session, cfg));
+        get("/transactions/:transaction", new TransactionDetailsForm(session, cfg));
+        post("/transactions/:transaction", new TransactionSaveHandler(session, cfg));
+        post("/transactions/:transaction/addProduct", new TransactionAddProductHandler(session, cfg));
 
         exception(Exception.class, (exception, request, response) -> {
             exception.printStackTrace();
