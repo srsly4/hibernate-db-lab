@@ -7,6 +7,7 @@ import java.util.Set;
 
 
 @Entity
+@SecondaryTable(name="SUPPLIER_ADDRESS")
 public class Supplier {
     @Id
     @GeneratedValue(
@@ -14,8 +15,13 @@ public class Supplier {
     )
     private int dbId;
     private String companyName;
-    @Embedded
-    private Address address;
+
+    @Column(table="SUPPLIER_ADDRESS")
+    private String zipcode;
+    @Column(table="SUPPLIER_ADDRESS")
+    private String city;
+    @Column(table="SUPPLIER_ADDRESS")
+    private String street;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier")
     private Set<Product> products = new HashSet<>();
@@ -23,9 +29,11 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(String companyName, Address address) {
+    public Supplier(String companyName, String street, String city, String zipcode) {
         this.companyName = companyName;
-        this.address = address;
+        this.street = street;
+        this.city = city;
+        this.zipcode = zipcode;
     }
 
     public void addProduct(Product product) {
@@ -45,13 +53,28 @@ public class Supplier {
         this.companyName = companyName;
     }
 
-
-    public Address getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Set<Product> getProducts() {

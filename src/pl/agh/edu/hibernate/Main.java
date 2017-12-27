@@ -16,7 +16,7 @@ public class Main {
 
         Transaction tx = session.beginTransaction();
         Supplier supplier = new Supplier("test company 1",
-                new Address("Krakow", "00-999", "Lea"));
+                "Lea",  "Krakow", "00-999");
         session.save(supplier);
 
         Category cat = new Category("test category");
