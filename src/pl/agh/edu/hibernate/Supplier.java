@@ -14,8 +14,8 @@ public class Supplier {
     )
     private int dbId;
     private String companyName;
-    private String street;
-    private String city;
+    @Embedded
+    private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "supplier")
     private Set<Product> products = new HashSet<>();
@@ -23,10 +23,9 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(String companyName, String street, String city) {
+    public Supplier(String companyName, Address address) {
         this.companyName = companyName;
-        this.street = street;
-        this.city = city;
+        this.address = address;
     }
 
     public void addProduct(Product product) {
@@ -46,20 +45,13 @@ public class Supplier {
         this.companyName = companyName;
     }
 
-    public String getStreet() {
-        return street;
+
+    public Address getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Set<Product> getProducts() {

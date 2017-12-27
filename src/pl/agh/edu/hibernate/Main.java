@@ -15,10 +15,11 @@ public class Main {
 
 
         Transaction tx = session.beginTransaction();
-        Supplier supplier = new Supplier("test company 1", "test street", "Krakow");
+        Supplier supplier = new Supplier("test company 1",
+                new Address("Krakow", "00-999", "Lea"));
+        session.save(supplier);
 
         Category cat = new Category("test category");
-        session.save(supplier);
 
 
         Product testProduct = new Product("test prod cascade source", 5, cat);
