@@ -18,8 +18,8 @@
             <tr>
                 <td>${product.getProductName()}</td>
                 <td>${product.getUnitsOnStock()}</td>
-                <td></td>
-                <td></td>
+                <td>${product.getCategory().getName()}</td>
+                <td>${product.getSupplier().getCompanyName()}</td>
             </tr>
         </#list>
         </tbody>

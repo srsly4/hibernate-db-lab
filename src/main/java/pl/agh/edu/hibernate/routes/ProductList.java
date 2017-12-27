@@ -22,7 +22,9 @@ public class ProductList extends DefaultRoute {
     @Override
     public Object handle(Request request, Response response) throws Exception {
         Map<String, Object> params = new HashMap<>();
-        params.put("products", session.createQuery("select p from Product p").list());
+        params.put("products",
+                session.createQuery("select p from Product p " +
+                        "join fetch p.category join fetch p.supplier").list());
 
         return templateEngine.render(new ModelAndView(params, "products.ftl"));
     }
